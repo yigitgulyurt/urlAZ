@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="urlAZ - QR Kod Oluşturma Servisi">
+    <meta name="theme-color" content="#2563eb">
+    <title>urlAZ - QR Kod Sonucu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>urlAZ - QR Kod Oluşturuldu</h1>
+        <div class="feature-section">
+            <h2><i class="fas fa-qrcode"></i> QR Kod Oluşturuldu</h2>
+            
+            <div class="result-group">
+                <h3><i class="fas fa-link"></i> Orijinal URL</h3>
+                <div class="input-group">
+                    <input type="text" value="{{ url }}" readonly onclick="this.select()">
+                    <button class="copy-button" onclick="copyToClipboard('{{ url }}', this)" title="URL'yi Kopyala">
+                        <i class="fas fa-copy"></i>
+                        <span class="tooltip">Kopyala</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-group">
+                <h3><i class="fas fa-qrcode"></i> QR Kod</h3>
+                <div class="qr-container">
+                    <img src="{{ qr_url }}" alt="QR Kod" class="qr-image">
+                </div>
+                <div class="buttons">
+                    <a href="{{ qr_url }}" download class="button download">
+                        <i class="fas fa-download"></i> QR Kodu İndir
+                    </a>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a href="/" class="button">
+                    <a href="/" class="qr-action-btn"><i class="fas fa-home"></i> Ana Sayfa</a>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/privacy" class="footer-link">Gizlilik Politikası</a>
+            <a href="/terms" class="footer-link">Kullanım Koşulları</a>
+            <a href="/cookies" class="footer-link">Çerez Politikası</a>
+        </div>
+        <p class="footer-text">&copy; 2024 urlAZ. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(function() {
+                const icon = button.querySelector('i');
+                const tooltip = button.querySelector('.tooltip');
+                
+                button.classList.add('success');
+                icon.className = 'fas fa-check';
+                tooltip.textContent = 'Kopyalandı!';
+                
+                setTimeout(() => {
+                    button.classList.remove('success');
+                    icon.className = 'fas fa-copy';
+                    tooltip.textContent = 'Kopyala';
+                }, 2000);
+            }).catch(function(err) {
+                button.classList.add('error');
+                const tooltip = button.querySelector('.tooltip');
+                tooltip.textContent = 'Hata!';
+                
+                setTimeout(() => {
+                    button.classList.remove('error');
+                    tooltip.textContent = 'Kopyala';
+                }, 2000);
+                
+                console.error('URL kopyalama hatası:', err);
+            });
+        }
+    </script>
+</body>
+</html>

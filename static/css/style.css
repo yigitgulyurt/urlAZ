@@ -1,0 +1,107 @@
+@import 'base.css';
+@import 'components.css';
+
+/* Form sıfırlama için JavaScript ile birlikte çalışacak stil */
+form.reset-form input {
+    transition: all 0.3s ease;
+}
+
+form.reset-form input:not(:focus) {
+    background: var(--background-alt) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Placeholder padding adjustment for all input fields with icons */
+.input-group input {
+    text-indent: 1em;
+}
+.input-group input::placeholder {
+    text-indent: 0;
+    padding-left: 0;
+}
+
+.input-group {
+    position: relative;
+}
+.input-group .input-icon {
+    position: absolute;
+    left: 0.9em;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    /* color: #2563eb; */
+    font-size: 1.1em;
+    pointer-events: none;
+}
+
+.footer-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    width: 200px;
+    display: inline-block;
+}
+
+
+/* Button styling for QR download and home */
+.qr-action-btn {
+    background: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 8px;
+    padding: 0.6em 1.4em;
+    font-weight: 600;
+    margin: 0.5em 0.5em 0 0;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+    box-shadow: var(--card-shadow);
+}
+.qr-action-btn:hover {
+    background: var(--hover-color);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0.7rem !important;
+    margin: 0.5rem !important;
+    border-radius: 0.7rem !important;
+  }
+  .features-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .feature-section {
+    padding: 1rem !important;
+    border-radius: 0.7rem !important;
+  }
+  h1 {
+    font-size: 1.3rem !important;
+    margin-bottom: 1rem !important;
+  }
+  h2 {
+    font-size: 1.1rem !important;
+    margin: 0.7rem 0 !important;
+  }
+  .input-group input {
+    font-size: 0.95rem !important;
+    padding: 0.7rem 0.7rem 0.7rem 1.1rem !important;
+  }
+  button, .qr-action-btn, .home-button {
+    font-size: 0.95rem !important;
+    padding: 0.7rem 1.1rem !important;
+    border-radius: 0.7rem !important;
+  }
+  .result, .analysis-container, .screenshot-container {
+    padding: 0.7rem !important;
+    border-radius: 0.7rem !important;
+  }
+  .footer {
+    padding: 1rem 0.5rem !important;
+    font-size: 0.9rem !important;
+  }
+  img, .screenshot-container img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 0.5rem !important;
+  }
+}

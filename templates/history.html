@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="urlAZ - URL Analiz Geçmişi">
+    <meta name="theme-color" content="#2563eb">
+    <title>Geçmiş - urlAZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>urlAZ</h1>
+        <div class="feature-section">
+            <h2><i class="fas fa-history"></i> Analiz Geçmişi</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-link"></i> URL</th>
+                        <th><i class="fas fa-calendar"></i> Tarih</th>
+                        <th><i class="fas fa-shield-alt"></i> Risk Skoru</th>
+                        <th><i class="fas fa-cogs"></i> İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for analysis in analyses %}
+                    <tr>
+                        <td>{{ analysis.url }}</td>
+                        <td>{{ analysis.date }}</td>
+                        <td>
+                            <div class="risk-score" data-score="{{ analysis.risk_score }}">{{ analysis.risk_score }}</div>
+                        </td>
+                        <td class="table-actions">
+                            <a href="/download-pdf/{{ analysis.id }}" title="PDF İndir">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </a>
+                            <button onclick="sendEmail('{{ analysis.id }}')" title="E-posta Gönder">
+                                <i class="fas fa-envelope"></i> E-posta
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

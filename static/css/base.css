@@ -1,0 +1,150 @@
+/* Modern ve minimalist tasarım için CSS değişkenleri */
+:root {
+    --primary-color: #FFC107;
+    --secondary-color: #1E1E1E;
+    --background-color: #121212;
+    --text-color: #FFFFFF;
+    --hover-color: #2D2D2D;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+    /* Eski değişkenler ile uyumluluk için */
+    --primary: #FFC107;
+    --primary-dark: #FFA000;
+    --secondary: #1E1E1E;
+    --secondary-dark: #121212;
+    --accent: #60a5fa;
+    --accent-dark: #3b82f6;
+    --success: #34d399;
+    --success-dark: #10b981;
+    --error: #f87171;
+    --error-dark: #ef4444;
+    --warning: #fbbf24;
+    --warning-dark: #f59e0b;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B0B0;
+    --text-tertiary: #888888;
+    --background: #121212;
+    --background-alt: #1E1E1E;
+    --border-color: #2D2D2D;
+    --primary-gradient: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+    --secondary-gradient: linear-gradient(135deg, #1E1E1E 0%, #2D2D2D 100%);
+    --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    --success-gradient: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    --error-gradient: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    --background-gradient: radial-gradient(circle at top left, var(--background) 0%, var(--background-alt) 100%);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.16);
+    --shadow-lg: 0 16px 24px rgba(0, 0, 0, 0.24);
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-speed: 0.3s;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+}
+
+/* Koyu mod desteği */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #121212;
+        --background-alt: #1E1E1E;
+        --text-primary: #FFFFFF;
+        --text-secondary: #B0B0B0;
+        --text-tertiary: #888888;
+        --border-color: #2D2D2D;
+        --background-gradient: linear-gradient(135deg, var(--background) 0%, var(--background-alt) 100%);
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+        --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+        --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+        --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+    }
+}
+
+/* Temel stiller */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--background-gradient);
+    margin: 0;
+    padding: 0;
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background-color var(--transition-normal);
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(8px);
+    }
+    50% {
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

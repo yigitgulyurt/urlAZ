@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="URL güvenlik kontrolü, kısaltma ve QR kod oluşturma servisi">
+    <meta name="theme-color" content="#2563eb">
+    <title>urlAZ - URL Güvenlik Kontrolü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
+    <script>
+      // Clear all form inputs on page load
+      window.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form').forEach(function(form) {
+          form.reset();
+        });
+      });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>urlAZ - URL Güvenlik Kontrolü</h1>
+        <!-- <div class="alert alert-warning">
+            <strong>⚠️ Bilgilendirme:</strong> Ekran görüntüsü alma özelliği şu anda geçici olarak devre dışıdır. En kısa sürede tekrar aktif edilecektir. Anlayışınız için teşekkür ederiz.
+        </div> -->
+<div class="features-container">
+    <div class="feature-section">
+        <div class="url-shortener">
+            <h2><i class="fas fa-link"></i> URL Kısaltma</h2>
+            <form action="/shorten" method="POST" class="animated-form">
+                <div class="input-group">
+                    <input type="url" name="url" placeholder="URL'nizi buraya yapıştırın" required>
+                    <i class="fas fa-paste input-icon"></i>
+                </div>
+                <button type="submit"><i class="fas fa-cut"></i>URL'yi Kısalt</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="qr-generator">
+            <h2><i class="fas fa-qrcode"></i> QRKod Oluşturma</h2>
+            <form action="/qr" method="POST" class="animated-form">
+                <div class="input-group">
+                    <input type="url" name="url" placeholder="QRkod için URL girin" required>
+                    <i class="fas fa-link input-icon"></i>
+                </div>
+                <button type="submit"><i class="fas fa-qrcode"></i>QRKod Oluştur</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="security-check">
+            <h2><i class="fas fa-shield-alt"></i> Güvenlik Kontrolü</h2>
+            <form method="POST" class="animated-form" id="security-check-form">
+                <div class="input-group">
+                    <input type="url" name="url" placeholder="Güvenlik kontrolü için URL girin" required>
+                    <i class="fas fa-search input-icon"></i>
+                </div>
+                <button type="submit"><i class="fas fa-shield-alt"></i>URL'yi Analiz Et</button>
+            </form>
+            <div id="progress-bar-container" style="display:none; margin-top:1em;">
+                <div id="progress-bar" style="width:0%; height:18px; background:#2563eb; border-radius:6px; transition:width 0.4s;"></div>
+                <div id="progress-text" style="margin-top:0.5em; color:#2563eb; font-weight:600; text-align:center;">Analiz Başlatılıyor...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+        {% if url %}
+        <div class="result">
+            <h3>Girilen URL:</h3>
+            <p>{{ url }}</p>
+            <div style="margin-top:1.5em;">
+                <a href="{{ url_for('security_result', url=url) }}" class="qr-action-btn"><i class="fas fa-shield-alt"></i> Güvenlik Analiz Sonucunu Görüntüle</a>
+                <a href="/" class="qr-action-btn"><i class="fas fa-home"></i> Ana Sayfa</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/privacy" class="footer-link">Gizlilik Politikası</a>
+            <a href="/terms" class="footer-link">Kullanım Koşulları</a>
+            <a href="/cookies" class="footer-link">Çerez Politikası</a>
+        </div>
+        <p class="footer-text">&copy; 2024 urlAZ. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- <script src="/static/js/main.js"></script> -->
+</body>
+<script>
+// Progress bar logic for security analysis
+const form = document.getElementById('security-check-form');
+const progressBarContainer = document.getElementById('progress-bar-container');
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+
+if(form) {
+    form.addEventListener('submit', function(e) {
+        progressBarContainer.style.display = 'block';
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Analiz Başlatılıyor...';
+        let progress = 0;
+        const steps = [
+            'SSL kontrol ediliyor...',
+            'Domain yaşı kontrol ediliyor...',
+            'DNS kayıtları kontrol ediliyor...',
+            'TLD analizi yapılıyor...',
+            'İçerik analizi yapılıyor...'
+        ];
+        function updateProgress() {
+            if(progress < steps.length) {
+                progressBar.style.width = ((progress+1)*20) + '%';
+                progressText.textContent = steps[progress];
+                progress++;
+                setTimeout(updateProgress, 700);
+            } else {
+                progressBar.style.width = '100%';
+                progressText.textContent = 'Analiz tamamlandı, sonuçlar yükleniyor...';
+            }
+        }
+        updateProgress();
+    });
+}
+</script>
+</html>

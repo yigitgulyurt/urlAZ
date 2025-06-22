@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Analiz Raporu</title>
+    <style>
+        /* PDF stil tanımlamaları */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>URL Analiz Raporu</h1>
+        <h2>{{ url }}</h2>
+        
+        <div class="risk-score">
+            <h3>Risk Skoru: {{ analysis.risk_score }}/100</h3>
+            <p>Risk Seviyesi: {{ analysis.risk_level }}</p>
+        </div>
+
+        {% if analysis.warnings %}
+        <div class="warnings">
+            <h3>Uyarılar</h3>
+            <ul>
+            {% for warning in analysis.warnings %}
+                <li>{{ warning }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="details">
+            <h3>Detaylı Analiz</h3>
+            <!-- SSL Bilgileri -->
+            {% if analysis.details.ssl %}
+            <div class="section">
+                <h4>SSL Durumu</h4>
+                <p>Geçerlilik: {{ "Geçerli" if analysis.details.ssl.valid else "Geçersiz" }}</p>
+                {% if analysis.details.ssl.issuer %}
+                <p>Sertifika Sağlayıcı: {{ analysis.details.ssl.issuer }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Domain Yaşı -->
+            {% if analysis.details.domain_age is defined %}
+            <div class="section">
+                <h4>Domain Bilgileri</h4>
+                <p>Domain Yaşı: {{ analysis.details.domain_age }} gün</p>
+            </div>
+            {% endif %}
+
+            <!-- VirusTotal Sonuçları -->
+            {% if analysis.details.virustotal %}
+            <div class="section">
+                <h4>VirusTotal Sonuçları</h4>
+                <pre>{{ analysis.details.virustotal | tojson(indent=2) }}</pre>
+            </div>
+            {% endif %}
+
+            <!-- IP Reputation -->
+            {% if analysis.details.ip_reputation %}
+            <div class="section">
+                <h4>IP İtibar Analizi</h4>
+                <pre>{{ analysis.details.ip_reputation | tojson(indent=2) }}</pre>
+            </div>
+            {% endif %}
+
+            <!-- JavaScript Analizi -->
+            {% if analysis.details.javascript_analysis %}
+            <div class="section">
+                <h4>JavaScript Analizi</h4>
+                <ul>
+                {% for finding in analysis.details.javascript_analysis %}
+                    <li>{{ finding }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
