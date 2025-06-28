@@ -16,3 +16,4 @@ shortuuid
 virustotal-python
 python-telegram-bot
 websocket-client
+json

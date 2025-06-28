@@ -19,6 +19,7 @@ import logging
 from markupsafe import Markup
 from redis.connection import ConnectionPool
 import hashlib
+import json
 
 # URL kısaltma fonksiyonu
 def shorten_url(url):
